@@ -1,0 +1,1 @@
+# Database / Vector store connection (e.g., PostgreSQL/pgvector)

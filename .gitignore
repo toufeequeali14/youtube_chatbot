@@ -1,0 +1,5 @@
+.env
+.idea/
+venv/
+transcripts_list.json
+ingestion/__pycache__/chunker.cpython-312.pyc
