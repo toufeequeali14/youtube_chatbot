@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    image: youtube-video-rag-chatbot:latest
+    container_name: youtube-chatbot-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env                 # GROQ_API_KEY etc. injected at runtime, never baked into the image
+    volumes:
+      - vector_db:/app/vector_db   # FAISS indexes survive container restarts and rebuilds
+    restart: unless-stopped
+
+volumes:
+  vector_db:

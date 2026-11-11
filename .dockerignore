@@ -1,0 +1,27 @@
+# Secrets: never bake keys into an image
+.env
+.env.*
+
+# Local environments and caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Generated data: mounted as a volume at runtime instead
+vector_db/
+
+# Git and editor files
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Docker files themselves and local run scripts
+Dockerfile
+docker-compose.yml
+.dockerignore
+run.sh
+run.bat
