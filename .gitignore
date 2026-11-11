@@ -4,3 +4,6 @@ venv/
 transcripts_list.json
 ingestion/__pycache__/chunker.cpython-312.pyc__pycache__/
 *.pyc
+vector_db/
+test_file.py
+tests/
