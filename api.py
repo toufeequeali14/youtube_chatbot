@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 from core.pipeline import get_or_build_vector_store
 from core.rag_engine import answer_question
+from common.config import API_HOST, API_PORT
 
 app = FastAPI(title="YouTube Chatbot")
 
@@ -60,4 +61,5 @@ def ask(request: AskRequest):
     )
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import uvicorn
+    uvicorn.run(app, host=API_HOST, port=API_PORT)

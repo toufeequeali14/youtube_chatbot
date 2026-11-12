@@ -3,12 +3,16 @@ services:
     build: .
     image: youtube-video-rag-chatbot:latest
     container_name: youtube-chatbot-api
+    # Single process on purpose: api.py keeps an in-memory cache of loaded vector stores
+    command: ["python", "api.py"]
     ports:
-      - "8000:8000"
+      - "${API_PORT:-8080}:${API_PORT:-8080}"
+    environment:
+      API_HOST: 0.0.0.0        # must be 0.0.0.0 in a container, or the port mapping can't reach the app
     env_file:
-      - .env                 # GROQ_API_KEY etc. injected at runtime, never baked into the image
+      - .env
     volumes:
-      - vector_db:/app/vector_db   # FAISS indexes survive container restarts and rebuilds
+      - vector_db:/app/vector_db
     restart: unless-stopped
 
 volumes:

@@ -29,11 +29,6 @@ RUN useradd --create-home --uid 1000 app \
     && chown -R app:app /app /opt/hf-cache
 USER app
 
-EXPOSE 8000
-
 # Python is already in the image, so no curl needed for the health check
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).status == 200 else 1)"
-
-# Single worker on purpose: api.py keeps an in-memory cache of loaded vector stores
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+    CMD python -c "import os,sys,urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:%s/health' % os.environ.get('API_PORT','8080'), timeout=4).status == 200 else 1)"
